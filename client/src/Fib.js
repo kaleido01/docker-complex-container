@@ -5,9 +5,6 @@ const Fib = () => {
   const [values, setValues] = React.useState({});
   const [index, setIndex] = React.useState("");
   React.useEffect(() => {
-    fetchValues();
-    fetchIndexes();
-
     const fetchValues = async () => {
       const values = await axios.get("/api/values/current");
       setValues(values.data);
@@ -16,11 +13,13 @@ const Fib = () => {
       const seenIndexes = await axios.get("/api/values/all");
       setSeenIndexes(seenIndexes.data);
     };
+    fetchValues();
+    fetchIndexes();
   });
   const renderSeenIndexes = () => {
     return seenIndexes.map(({ number }) => number).join(", ");
   };
-  const renderSeenIndexes = () => {
+  const renderValues = () => {
     const entries = [];
 
     for (let key in values) {
