@@ -15,9 +15,13 @@ const Fib = () => {
     };
     fetchValues();
     fetchIndexes();
-  });
+  }, [index]);
   const renderSeenIndexes = () => {
-    return seenIndexes.map(({ number }) => number).join(", ");
+    console.log(seenIndexes);
+    return (
+      seenIndexes.length !== 0 &&
+      seenIndexes.map(({ number }) => number).join(", ")
+    );
   };
   const renderValues = () => {
     const entries = [];
@@ -39,14 +43,12 @@ const Fib = () => {
     });
     setIndex("");
   };
+  console.log(values);
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <label>Enter your index:</label>
-        <input
-          value={index}
-          onChange={event => setSeenIndexes(event.target.value)}
-        />
+        <input value={index} onChange={event => setIndex(event.target.value)} />
         <button>Submit</button>
       </form>
       <h3>Indexes I have seen:</h3>
