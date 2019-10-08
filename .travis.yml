@@ -16,7 +16,7 @@ after_success:
   - docker build -t kaleido01/server ./server
   - docker build -t kaleido01/worker ./worker
   #dockerにログイン
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --paswword-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #これらのイメージをdocker hubにpush
   - docker push kaleido01/client ./client
   - docker push kaleido01/nginx ./nginx
