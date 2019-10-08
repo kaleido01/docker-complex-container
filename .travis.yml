@@ -1,0 +1,24 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t kaleido01/docker-complex-container -f ./client/Dockerfile.dev ./client
+
+# テストしたい数だけbefore_installとscriptを組み合わせればok
+script:
+  - docker run -e CI=true kaleido01/docker-complex-container yarn test -- --coverage
+
+after_success:
+  - docker build -t kaleido01/client ./client
+  - docker build -t kaleido01/nginx ./nginx
+  - docker build -t kaleido01/server ./server
+  - docker build -t kaleido01/worker ./worker
+  #dockerにログイン
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --paswword-stdin
+  #これらのイメージをdocker hubにpush
+  - docker push kaleido01/client ./client
+  - docker push kaleido01/nginx ./nginx
+  - docker push kaleido01/server ./server
+  - docker push kaleido01/worker ./worker
