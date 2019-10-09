@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDifinitions": [
+    {
+      "name": "client",
+      "image": "kaleido01/client",
+      "hostname": "client",
+      "essential": true
+    },
+    {
+      "name": "server",
+      "image": "kaleido01/server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "kaleido01/worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "kaleido01/nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portmMapping": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}

@@ -22,3 +22,16 @@ after_success:
   - docker push kaleido01/nginx
   - docker push kaleido01/server
   - docker push kaleido01/worker
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: docker-complex
+  env: DockerComplex-env
+  bucket_name: elasticbeanstalk-us-east-2-145160279582
+  bucket_pass: docker-complex
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
