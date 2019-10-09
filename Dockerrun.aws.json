@@ -27,7 +27,7 @@
       "image": "kaleido01/nginx",
       "hostname": "nginx",
       "essential": true,
-      "portmMapping": [
+      "portMappings": [
         {
           "hostPort": 80,
           "containerPort": 80
